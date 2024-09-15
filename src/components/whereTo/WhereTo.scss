@@ -1,0 +1,185 @@
+.where-to-out-container {
+    width: 100%;
+    max-width: 80%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.where-to-toping {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.where-to-details {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+        font-size: 14px;
+        color: #555;
+    }
+
+    select,
+    input {
+        padding: 10px;
+        width: 50%;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        font-size: 14px;
+        transition: border 0.3s ease;
+
+        &:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+    }
+}
+
+.traveller-dropdown {
+    .dropdown-toggle {
+        width: 100%;
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #007bff;
+        border: none;
+        color: white;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    .dropdown-menu {
+        width: 100%;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .traveller-counters {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+
+        .counter-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            label {
+                font-size: 16px;
+                font-weight: 500;
+            }
+
+            .counter-buttons {
+                display: flex;
+                gap: 10px;
+
+                button {
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    border: 1px solid #ddd;
+                    background-color: white;
+                    font-size: 16px;
+                    color: #555;
+                    transition: background-color 0.3s ease, color 0.3s ease;
+
+                    &:hover {
+                        background-color: #007bff;
+                        color: white;
+                    }
+
+                    &:disabled {
+                        background-color: #f1f1f1;
+                        color: #ccc;
+                    }
+                }
+
+                span {
+                    font-size: 16px;
+                    font-weight: 500;
+                }
+            }
+        }
+
+
+        .children-ages {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .age-group {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+
+                label {
+                    font-size: 14px;
+                }
+
+                select {
+                    width: 80px;
+                    padding: 5px;
+                    font-size: 14px;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #0056b3;
+    }
+}
+
+.error-message {
+    color: red;
+}
+
+.date-picker-wrapper {
+    position: relative;
+
+    .react-datepicker-wrapper {
+        display: block;
+        width: 100%;
+    }
+
+    .react-datepicker__input-container input {
+        pointer-events: none;
+    }
+}
+
+
+@media (max-width : 800px) {
+    .form-group {
+
+        select,
+        input {
+            width: 100%;
+        }
+    }
+}
