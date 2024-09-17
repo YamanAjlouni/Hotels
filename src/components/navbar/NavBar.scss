@@ -1,18 +1,30 @@
+@import '../../assets/styles/vars.scss';
+
 .navbar-out-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     // margin-bottom: 20px;
     padding: 20px;
+    background-color: $primary-color;
 
 
     .navbar-logo-image-container {
         flex: 2;
         display: flex;
         justify-content: center;
+        text-decoration: none;
+        color: $second-color;
 
-        .navbar-logo-image {
+
+        .navbar-logo-link {
             width: 300px;
+            text-decoration: none;
+            color: $second-color;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
         }
 
         font-size: 30px;
@@ -21,6 +33,7 @@
 
     .pi-align-justify{
         display: none;
+        color: $second-color;
     }
 
 
@@ -33,6 +46,11 @@
         flex: 3;
         margin: 0;
 
+        a{
+            text-decoration: none;
+            color: $second-color;
+        }
+        
         li {
             font-size: 20px;
             font-weight: 700;
@@ -50,7 +68,11 @@
         .navbar-logo-image-container{
             flex: 5 !important;
             justify-content: start;
-            margin-left: 30px;
+
+            .navbar-logo-link{
+                justify-content: start;
+                padding-left: 30px;
+            }
         }
 
         ul{
@@ -61,9 +83,17 @@
         .pi-align-justify{
             display: flex;
             width: 100%;
-            justify-content: center;
+            align-items: center;
+            justify-content: start;
             font-size: 20px;
             flex: 1;
+
+            &::before{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+            }
         }
 
 
@@ -72,13 +102,20 @@
             display: flex;
             flex-direction: column;
             position: absolute;
-            top: 80px;
-            background-color: red;
+            top: 85px;
+            background-color: $second-color;
             justify-content: center;
             align-items: center;
             padding:  30px 0;
             z-index: 1;
+            height: 400px;
             transition: height 0.6s ease, opacity 0.6s ease, transform 0.6s ease, visibility 0s; // Remove delay when active
+
+            a{
+                color: $primary-color;
+                font-size: 23px;
+                font-weight: bold;
+            }
         }
 
 

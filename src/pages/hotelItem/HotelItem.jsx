@@ -1,20 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types'; // Import PropTypes
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import './HotelItem.scss';
-import RoomDetails from '../roomDetails/RoomDetails';
 
-const HotelItem = ({ hotel }) => {
+const HotelItem = ({ hotel , city }) => {
   return (
-    <div className="hotel-item">
-      <img src={hotel.image} alt={hotel.name} className="hotel-image" />
-      <div>
+    <Link to={`/${city.city}/hotel/${hotel.id}`} className="hotel-item-link">
+      <div className="hotel-item">
         <h2>{hotel.name}</h2>
-        <p>{hotel.description}</p>
-        <p>Stars: {hotel.stars}</p>
+        <img src={hotel.image} alt={hotel.name} className="hotel-image" />
+        <div>
+          <p>{hotel.description}</p>
+          <p>Stars: {hotel.stars}</p>
+        </div>
       </div>
-      <RoomDetails rooms={hotel.rooms} />
-    </div>
-  );
+    </Link>
+  )
 };
 
 HotelItem.propTypes = {
@@ -22,16 +23,8 @@ HotelItem.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string,
-    price: PropTypes.number.isRequired,
+    stars: PropTypes.number.isRequired,
     image: PropTypes.string.isRequired,
-    rooms: PropTypes.arrayOf(
-      PropTypes.shape({
-        roomType: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        description: PropTypes.string,
-        image: PropTypes.string
-      })
-    ).isRequired
   }).isRequired
 };
 

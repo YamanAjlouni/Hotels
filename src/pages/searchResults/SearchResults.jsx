@@ -1,47 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types'; // Import PropTypes
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './SearchResults.scss';
 import CityHeader from '../cityHeader/CityHeader';
 import HotelList from '../hotelList/HotelList';
+import { useLocation } from 'react-router-dom';
+import { setSelectedCity } from '../../redux/slices/citySlice';
 
-const SearchResults = ({ cityData = {}, selectedCity = '', filters = {} }) => {
-  const [filteredHotels, setFilteredHotels] = useState([]);
+const SearchResults = () => {
+  const cityData = useSelector(state => state.cities);
+  const filters = useSelector(state => state.filters);
+  const selectedCity = useSelector(state => state.cities.selectedCity);
+  const dispatch = useDispatch();
+  const location = useLocation();
+
+  const getQueryParams = (search) => {
+    return new URLSearchParams(search);
+  };
 
   useEffect(() => {
-    if (selectedCity && cityData[selectedCity]) {
-      // Apply filters here if needed
-      const city = cityData[selectedCity];
-      let hotels = city.hotels || [];
-      
-      // Example of applying a filter (if needed):
-      if (filters.price) {
-        hotels = hotels.filter(hotel => hotel.price <= filters.price);
-      }
-
-      setFilteredHotels(hotels);
+    const queryParams = getQueryParams(location.search);
+    const city = queryParams.get('city');
+    if (city && city !== selectedCity) {
+      dispatch(setSelectedCity(city));
     }
-  }, [selectedCity, filters, cityData]);
+  }, [location.search, selectedCity, dispatch]);
 
   const city = cityData[selectedCity];
+  const filteredHotels = city?.hotels?.filter(hotel => {
+    let matches = true;
+    if (filters.price) {
+      matches = matches && hotel.price <= filters.price;
+    }
+    if (filters.stars) {
+      matches = matches && hotel.stars >= filters.stars;
+    }
+    return matches;
+  });
 
   return (
     <div className="search-results">
       {city ? (
         <>
           <CityHeader city={city} />
-          <HotelList hotels={filteredHotels} />
+          <HotelList city={city} hotels={filteredHotels} />
         </>
       ) : (
         <p>No results found for the selected city.</p>
       )}
     </div>
   );
-};
-
-SearchResults.propTypes = {
-  cityData: PropTypes.object,
-  selectedCity: PropTypes.string,
-  filters: PropTypes.object
 };
 
 export default SearchResults;

@@ -1,6 +1,6 @@
 const data = {
     Damascus: {
-        name: 'Damascus',
+        city: 'Damascus',
         description: 'Damascus is the oldest city in the world ',
         image: (require('../assets/images/damascus/damascusCity2.webp')), // Add an image URL for Damascus city
         hotels: [
@@ -8,7 +8,7 @@ const data = {
                 id: 1,
                 name: 'Four Seasons',
                 description: 'The hotel features restaurant, bars, pool, gymnasium and Spa. ',
-                stars: 5,
+                stars: '★★★★★',
                 image: (require('../assets/images/damascus/damascusHotels/fourseasons/four-seasons-hotel.jpg')), // Add an image URL for the hotel
                 rooms: [
                     {
@@ -29,10 +29,44 @@ const data = {
                 ]
             },
             {
-                id: 1,
+                id: 2,
                 name: 'Seven Gates',
                 description: 'Seven Gates Hotel is a five-stars hotel in Syria, located in the center of the capital, Damascus, overlooking the Omayyad Square',
-                stars: 5,
+                stars: '★★★★★',
+                image: (require('../assets/images/damascus/damascusHotels/sevenGates/sevenGates-damascus-hotel.jpg')), // Add an image URL for the hotel
+                rooms: [
+                    {
+                        roomName: 'Room for one person',
+                        roomType: 'Single',
+                        price: '1,230,000',
+                        description: 'Single room',
+                        image: require('../assets/images/damascus/damascusHotels/sevenGates/sevenGates-rooms/sevenGates-room1.jpg') // Add an image URL for the room
+                    },
+                    // More rooms
+                ]
+            },
+            {
+                id: 3,
+                name: 'Blue Tower',
+                description: 'Seven Gates Hotel is a five-stars hotel in Syria, located in the center of the capital, Damascus, overlooking the Omayyad Square',
+                stars: '★★★★',
+                image: (require('../assets/images/damascus/damascusHotels/bluetower/bluetower-damascus.jpg')), // Add an image URL for the hotel
+                rooms: [
+                    {
+                        roomName: 'Room for one person',
+                        roomType: 'Single',
+                        price: '1,230,000',
+                        description: 'Single room',
+                        image: require('../assets/images/damascus/damascusHotels/sevenGates/sevenGates-rooms/sevenGates-room1.jpg') // Add an image URL for the room
+                    },
+                    // More rooms
+                ]
+            },
+            {
+                id: 4,
+                name: "Cote d'Azur",
+                description: 'Seven Gates Hotel is a five-stars hotel in Syria, located in the center of the capital, Damascus, overlooking the Omayyad Square',
+                stars: '★★★★★',
                 image: (require('../assets/images/damascus/damascusHotels/sevenGates/sevenGates-damascus-hotel.jpg')), // Add an image URL for the hotel
                 rooms: [
                     {
@@ -49,12 +83,14 @@ const data = {
         ]
     },
     Lattakia: {
+        city : 'Lattakia',
         image: 'url-to-lattakia-image.jpg',
         hotels: [
             // Hotels in Lattakia
         ]
     },
-    Tartous: {
+    Tartus: {
+        city : "Tartus",
         image: 'url-to-tartous-image.jpg',
         hotels: [
             {

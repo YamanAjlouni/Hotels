@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    /* background-color: #f5f5dc; */
 }
 
 html {
@@ -10,13 +11,21 @@ html {
 
 .react-datepicker__close-icon::after {
     cursor: pointer;
-    background-color: #216ba5;
-    color: #fff;
+    background-color: #1a3d7c  ;
+    color: #f4f4f4;
     border-radius: 50%;
-    height: 19px;
-    width: 19px;
+    height: 30px;
+    width: 30px;
     padding: 2px;
-    font-size: 13px;
+    font-size: 15px;
 
+}
+
+.css-hlgwow{
+    cursor: pointer;
+}
+
+.btn{
+    background-color: #1a3d7c !important;
 }
 
