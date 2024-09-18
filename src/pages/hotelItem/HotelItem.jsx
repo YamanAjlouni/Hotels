@@ -11,7 +11,7 @@ const HotelItem = ({ hotel , city }) => {
         <img src={hotel.image} alt={hotel.name} className="hotel-image" />
         <div>
           <p>{hotel.description}</p>
-          <p>Stars: {hotel.stars}</p>
+          <p className='hotel-stars'> {hotel.stars}</p>
         </div>
       </div>
     </Link>

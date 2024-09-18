@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import RoomDetails from '../roomDetails/RoomDetails';
@@ -8,6 +8,10 @@ const HotelDetails = () => {
   const { city, id } = useParams();
   const cityData = useSelector(state => state.cities[city]);
   const hotel = cityData?.hotels.find(hotel => hotel.id === parseInt(id));
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   if (!hotel) {
     return <div>Hotel not found</div>;

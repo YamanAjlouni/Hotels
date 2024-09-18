@@ -1,48 +1,105 @@
 @import '../../assets/styles/vars.scss';
 
-// HotelItem.scss
+.hotel-item-link {
+  text-decoration: none; // Remove underline from Link
+  width: 50%;
+}
+
 .hotel-item {
-    border: 1px solid $light-color;
-    border-radius: 8px;
+  border: 1px solid $light-color;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  margin: 0 15px;
+  background-color: $light-color;
+  width: calc(100% - 30px); // Adjust width to fit better in containers
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none; // Ensure no text decoration
+  color: inherit;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .hotel-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 15px;
+  }
+
+  h2 {
+    margin: 0;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 40px;
+    color: $primary-color;
+    letter-spacing: 1px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+  div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+      text-align: center;
+      margin: 5px 0;
+      font-size: 1.4rem;
+      color: $text-color; // Use the new text color
+      line-height: 1.5; // Ensure readability
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+  }
+
+  .hotel-stars {
+    font-size: 30px;
+    color: $second-color;
+  }
+}
+
+// Media Query for Mobile Devices
+@media (max-width: 800px) {
+  .hotel-item-link{
+    width: 80%;
+  }
+
+  .hotel-item {
+    width: calc(100% - 20px); // Adjust width for mobile view
+    margin: 10px;
     padding: 15px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin: 0 20px;
-    background-color: $light-color;
-    width: 60%;
+
+    h2 {
+      font-size: 1.25rem;
+    }
+  }
+}
+
+// Media Query for Smaller Mobile Devices
+@media (max-width: 480px) {
+  .hotel-item-link{
+    width: 90%;
+  }
+
+  .hotel-item {
+    width: calc(100% - 10px); // Further adjust width for very small screens
+    margin: 5px;
+    padding: 10px;
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: bold;
+    }
 
     div{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
 
       p{
-        text-align: center;
-      }
-    }
-
-    
-  
-    .hotel-image {
-      width: 100%;
-      // height: 600px;
-      object-fit: contain;
-      border-radius: 20px !important;
-      margin-bottom: 20px;
-    }
-  
-    h2 {
-      margin: 20px 0;
-      text-align: center;
-      font-size: 45px;
-      color: $primary-color;
-    }
-  }
-  
-  @media(max-width: 800px){
-    .hotel-item{
-      width: 100%;
-      .hotel-image{
-        height: auto;
+        font-size: 1.1rem;
+        line-height: 1.8;
       }
     }
   }
+}

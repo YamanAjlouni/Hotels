@@ -4,6 +4,7 @@ import NavBar from '../components/navbar/NavBar';
 import SearchResults from '../pages/searchResults/SearchResults';
 import { HomePage } from '../HomePage';
 import HotelDetails from '../pages/hotelDetails/HotelDetails';
+import DetailSpecialOffer from '../pages/detailSpecialOffer/DetailSpecialOffer';
 
 const AppRoutes = () => {
   return (
@@ -13,6 +14,7 @@ const AppRoutes = () => {
         <Route path="/" element={<HomePage />} />
         <Route path="/search-results" element={<SearchResults />} />
         <Route path="/:city/hotel/:id" element={<HotelDetails />} />
+        <Route path="/offer-details" element={<DetailSpecialOffer />} /> 
         {/* Add more routes as needed */}
       </Routes>
     </Router>

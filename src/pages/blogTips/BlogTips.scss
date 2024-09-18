@@ -1,0 +1,60 @@
+@import '../../assets/styles/vars.scss';
+
+.blog-section {
+    padding: 50px 0;
+    text-align: center;
+  
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: $primary-color;
+    }
+  
+    .blog-cards {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+  
+      .blog-card {
+        background-color: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 300px;
+        margin: 20px;
+  
+        img {
+          width: 100%;
+          height: 200px;
+          object-fit: cover;
+        }
+  
+        h3 {
+          font-size: 1.5rem;
+          margin: 15px 0;
+          color: $second-color;
+        }
+  
+        p {
+          padding: 0 15px;
+          font-size: 1rem;
+        }
+  
+        .read-more {
+          display: inline-block;
+          margin: 15px 0;
+          padding: 10px 20px;
+          background-color: $primary-color;
+          color: #fff;
+          text-decoration: none;
+          border-radius: 5px;
+          transition: background-color 0.3s ease;
+  
+          &:hover {
+            background-color: darken($primary-color, 10%);
+          }
+        }
+      }
+    }
+  }
+  

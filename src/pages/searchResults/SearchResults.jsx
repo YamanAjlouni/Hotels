@@ -18,6 +18,10 @@ const SearchResults = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     const queryParams = getQueryParams(location.search);
     const city = queryParams.get('city');
     if (city && city !== selectedCity) {

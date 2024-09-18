@@ -28,7 +28,9 @@
 
     div {
       margin-top: 10px;
-      font-size: 1.1rem;
+      font-size: 1.5rem;
+      font-weight: bold;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
       line-height: 1.6;
       color: $primary-color; /* Secondary text color */
     }
@@ -55,6 +57,10 @@
     .city-details {
       align-items: center;
       padding-right: 0;
+
+      div{
+        font-size: 1.3rem;
+      }
     }
 
     .city-image {

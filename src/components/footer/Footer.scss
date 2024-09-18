@@ -1,0 +1,245 @@
+@import '../../assets/styles/vars.scss';
+
+.footer {
+  background-color: $primary-color;
+  color: #fff;
+  padding: 50px 0;
+
+  .footer-content {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+    .footer-section {
+      flex: 1;
+      padding: 0 20px;
+      margin: 10px 0;
+
+      h3 {
+        font-size: 1.5rem;
+        margin-bottom: 20px;
+        color: $second-color;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .contact {
+        p {
+          font-size: 1.1rem;
+          color: #fff;
+          margin-top: 10px;
+
+          strong {
+            color: $second-color; // Change color of phone number
+          }
+        }
+      }
+      
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          margin: 10px 0;
+
+          a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+
+            &:hover {
+              color: $second-color;
+            }
+          }
+        }
+      }
+
+      .social-icons {
+        display: flex;
+        gap: 20px;
+
+        a {
+          font-size: 1.5rem;
+          color: #fff;
+          transition: color 0.3s ease;
+
+          &:hover {
+            color: $second-color;
+          }
+
+          i {
+            font-size: inherit;
+          }
+        }
+      }
+    }
+
+    
+  }
+
+  .faq-item {
+    margin-bottom: 15px;
+
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      padding: 10px 0;
+      border-bottom: 1px solid #fff;
+      color: #fff;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+
+      span {
+        font-size: 1.1rem;
+        color: #fff;
+      }
+
+      svg {
+        transition: transform 0.3s ease;
+        font-size: 1.2rem;
+        color: #fff;
+      }
+
+      &:hover {
+        color: $second-color; // Change text color on hover
+      }
+    }
+
+    .faq-answer {
+      max-height: 0;
+      /* Initially hidden */
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0;
+      color: #dcdcdc;
+      font-size: 0.9rem;
+
+      p {
+        margin: 0;
+        line-height: 1.5;
+      }
+
+      &.open {
+        transition: max-height 0.4s ease, padding 0.4s ease;
+        max-height: 200px;
+        /* Adjust based on the content size */
+        padding: 10px 0;
+        /* Show padding when open */
+      }
+    }
+    
+  }
+  .footer-bottom {
+    text-align: center;
+    padding: 20px;
+    background-color: #133130;
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: $second-color;
+
+      &:last-of-type {
+        margin-top: 10px;
+        font-style: italic;
+      }
+    }
+  }
+}
+
+  // Mobile Styles
+  @media (max-width: 768px) {
+    .footer-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    .footer-section {
+      flex: none;
+      padding: 0;
+      margin: 20px 0;
+
+      h3 {
+        font-size: 1.2rem;
+      }
+
+      p {
+        font-size: 0.9rem;
+      }
+
+      .contact p {
+        font-size: 1rem;
+      }
+
+      ul li a {
+        font-size: 0.9rem;
+      }
+
+      .social-icons {
+        // flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+
+        a {
+          font-size: 1.2rem;
+        }
+      }
+    }
+
+    .footer-bottom {
+      padding: 15px;
+      font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    }
+
+    .faq-item {
+      .faq-question {
+        font-size: 1rem;
+
+        svg {
+          font-size: 1rem;
+        }
+      }
+
+      .faq-answer {
+        max-height: 150px; /* Adjust as needed */
+        font-size: 0.8rem;
+      }
+    }
+  }
+
+  // Extra Mobile Styles for Small Devices
+  @media (max-width: 480px) {
+    .footer-content {
+      padding: 0 10px;
+    }
+
+    .footer-section {
+      padding: 0;
+      margin: 10px 0;
+    }
+
+    .footer-bottom {
+      padding: 10px;
+    }
+
+    .faq-item {
+      .faq-question {
+        font-size: 0.9rem;
+
+        svg {
+          font-size: 0.9rem;
+        }
+      }
+
+      .faq-answer {
+        max-height: 100px; /* Adjust as needed */
+        font-size: 0.75rem;
+      }
+    }
+  }
+
