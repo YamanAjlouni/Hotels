@@ -6,7 +6,7 @@ import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import { Autoplay, FreeMode, Navigation, Thumbs } from "swiper/modules";
+// import { Autoplay, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { useNavigate } from 'react-router-dom';
 
 const SuggestedHotels = ({ hotels, city }) => {
@@ -69,7 +69,7 @@ SuggestedHotels.propTypes = {
       id: PropTypes.number.isRequired,
       name: PropTypes.string.isRequired,
       description: PropTypes.string,
-      price: PropTypes.number.isRequired,
+      // price: PropTypes.number.isRequired,
       image: PropTypes.string.isRequired,
       rooms: PropTypes.arrayOf(
         PropTypes.shape({
@@ -78,10 +78,10 @@ SuggestedHotels.propTypes = {
           description: PropTypes.string,
           image: PropTypes.string
         })
-      ).isRequired
+      )
     })
   ).isRequired,
-  city: PropTypes.string.isRequired, // Added city prop for navigation
+  city: PropTypes.string, // Added city prop for navigation
 };
 
 export default SuggestedHotels;

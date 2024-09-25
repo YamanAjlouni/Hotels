@@ -14,20 +14,26 @@
     height: 90vh;
     width: 100%;
     overflow: hidden;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
+    flex-direction: column; // Ensure items are stacked vertically
+
+    .city-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover; // Ensures the image covers the entire slide without distortion
+    }
   }
 
   .city-overlay {
+    position: absolute;
     background-color: rgba(0, 0, 0, 0.5); // Dark overlay for text visibility
     padding: 20px;
     border-radius: 10px;
     text-align: center;
+    z-index: 1; // Ensures the overlay is above the image
   }
 
   .city-name {

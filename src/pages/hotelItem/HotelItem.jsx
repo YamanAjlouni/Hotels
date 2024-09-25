@@ -23,7 +23,7 @@ HotelItem.propTypes = {
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
     description: PropTypes.string,
-    stars: PropTypes.number.isRequired,
+    stars: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
   }).isRequired
 };
