@@ -8,7 +8,7 @@ const HotelItem = ({ hotel , city }) => {
     <Link to={`/${city.city}/hotel/${hotel.id}`} className="hotel-item-link">
       <div className="hotel-item">
         <h2>{hotel.name}</h2>
-        <img src={hotel.image} alt={hotel.name} className="hotel-image" />
+        <img src={hotel.image_url} alt={hotel.name} className="hotel-image" />
         <div>
           <p>{hotel.description}</p>
           <p className='hotel-stars'> {hotel.stars}</p>

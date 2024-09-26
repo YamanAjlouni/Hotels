@@ -1,37 +1,52 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import RoomDetails from '../roomDetails/RoomDetails';
 import './HotelDetails.scss';
+import { GetHotelById } from '../../redux/actions/HotelsAction';
+import RoomDetails from '../roomDetails/RoomDetails';
+import Spinner from '../../components/spinner/Spinner';
 
 const HotelDetails = () => {
-  const { city, id } = useParams();
-  const cityData = useSelector(state => state.cities[city]);
-  const hotel = cityData?.hotels.find(hotel => hotel.id === parseInt(id));
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { selectedHotel, loading, error } = useSelector(state => state.hotels);
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    // Dispatch the action to fetch hotel by ID
+    dispatch(GetHotelById(id));
+  }, [id, dispatch]);
 
-  if (!hotel) {
+  console.log(selectedHotel)
+
+  if (loading) return <div><Spinner /></div>;
+  if (error) return <div>{error}</div>;
+
+  // Ensure selectedHotel is not null before trying to access its properties
+  if (!selectedHotel) {
     return <div>Hotel not found</div>;
   }
 
   return (
     <div className="hotel-detail">
       <div className="header">
-        <img src={hotel.image} alt={hotel.name} />
-        <h1>{hotel.name}</h1>
+        {/* Check if selectedHotel.image exists before rendering the img tag */}
+        {selectedHotel.image_url ? (
+          <img src={selectedHotel.image_url} alt={selectedHotel.name} />
+        ) : (
+          <div>No image available</div>
+        )}
+        <h1>{selectedHotel.name}</h1>
       </div>
       <div className="main-content">
-        <p>{hotel.description}</p>
-        <p className='hotel-stars'>{hotel.stars}</p>
+        <p>{selectedHotel.description}</p>
+        <p className='hotel-stars'>{selectedHotel.stars}</p>
         <div className="stars">
-          {Array.from({ length: hotel.stars }).map((_, i) => (
+          {Array.from({ length: selectedHotel.stars }).map((_, i) => (
             <i key={i} className="fa fa-star"></i>
           ))}
         </div>
-        <RoomDetails rooms={hotel.rooms} />
+        {/* You can also pass rooms to RoomDetails component */}
+        <RoomDetails hotelId={id} hotelName={ selectedHotel.name} />
       </div>
     </div>
   );

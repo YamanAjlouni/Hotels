@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './SearchResults.scss';
 import CityHeader from '../cityHeader/CityHeader';
@@ -12,41 +12,36 @@ const SearchResults = () => {
   const selectedCity = useSelector(state => state.cities.selectedCity);
   const dispatch = useDispatch();
   const location = useLocation();
+  const [cityName , setCityName] = useState('')
 
+  // Helper function to get query params
   const getQueryParams = (search) => {
     return new URLSearchParams(search);
   };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
+  // Get city from query parameters
   useEffect(() => {
     const queryParams = getQueryParams(location.search);
-    const city = queryParams.get('city');
+    const city = queryParams.get('city'); // Extract the city from query string (e.g., ?city=Damascus)
+    const name = queryParams.get('city'); // Extract the city from query string (e.g., ?city=Damascus)
+    setCityName(name)
+
     if (city && city !== selectedCity) {
-      dispatch(setSelectedCity(city));
+      dispatch(setSelectedCity(city)); // Dispatch the city to Redux if it's not already selected
     }
   }, [location.search, selectedCity, dispatch]);
 
-  const city = cityData[selectedCity];
-  const filteredHotels = city?.hotels?.filter(hotel => {
-    let matches = true;
-    if (filters.price) {
-      matches = matches && hotel.price <= filters.price;
-    }
-    if (filters.stars) {
-      matches = matches && hotel.stars >= filters.stars;
-    }
-    return matches;
-  });
+  const city = cityData[selectedCity]; // Retrieve the city data from Redux
+
+  // Apply filters to hotels
+  
 
   return (
     <div className="search-results">
       {city ? (
         <>
-          <CityHeader city={city} />
-          <HotelList city={city} hotels={filteredHotels} />
+          <CityHeader city={city} cityName={cityName} />
+          <HotelList city={city} cityName={cityName} />
         </>
       ) : (
         <p>No results found for the selected city.</p>

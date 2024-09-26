@@ -1,7 +1,7 @@
 const data = {
     Damascus: {
         city: 'Damascus',
-        description: 'Damascus is the oldest city in the world ',
+        description: 'Damascus is the ',
         image: (require('../assets/images/damascus/damascusCity2.webp')), // Add an image URL for Damascus city
         hotels: [
             {

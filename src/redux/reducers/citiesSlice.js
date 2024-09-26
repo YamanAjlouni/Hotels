@@ -1,6 +1,6 @@
 // citiesSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import { GetCitiesAction } from '../actions/CityAction';
+import { GetCitiesAction, GetDetailsByCityNameAction } from '../actions/CityAction';
 
 const citiesSlice = createSlice({
   name: 'cities',
@@ -23,6 +23,17 @@ const citiesSlice = createSlice({
       .addCase(GetCitiesAction.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(GetDetailsByCityNameAction.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(GetDetailsByCityNameAction.fulfilled, (state, action) => {
+        state.selectedCity = action.payload;
+        state.loading = false;
+      })
+      .addCase(GetDetailsByCityNameAction.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
       });
   },
 });

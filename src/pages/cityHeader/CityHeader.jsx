@@ -1,71 +1,59 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import './CityHeader.scss';
-import supabase from '../../config/supabaseClient';
-// import { fetchCities } from '../../config/supabaseApi';
+import { GetDetailsByCityNameAction } from '../../redux/actions/CityAction';
+import Spinner from '../../components/spinner/Spinner';
 
-const CityHeader = ({ city }) => {
-  // const [city, setCity] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [cities, setCities] = useState(null);
+const CityHeader = ({ cityName }) => {
+  const dispatch = useDispatch();
 
-  // console.log(supabase)
-  
-  // fetchCities();
+  // Select the city details from Redux state
+  const city = useSelector(state => state.cityData.selectedCity);
+  const loading = useSelector(state => state.cityData.loading);
+  const error = useSelector(state => state.cityData.error);
 
+  // Fetch the city details when the component mounts
   useEffect(() => {
-    const fetchCities = async () => {
-      const { data, error } = await supabase
-        .from('cities')
-        .select()
-
-      if (error) {
-        console.error('Error fetching city:', error)
-      }
-      if (data) {
-        setCities(data)
-      }
+    if (cityName) {
+      dispatch(GetDetailsByCityNameAction(cityName));
     }
+  }, [dispatch, cityName]);
 
-    fetchCities()
-    
-    
-  }, [])
-  useEffect(() => {console.log(cities)} , [ cities ])
+  // Render loading, error or city data
+  if (loading) {
+    return <Spinner />
+  }
+
+  if (error) {
+    return <p>Error loading city details: {error}</p>;
+  }
+  console.log(city)
 
   return (
-
-    // <div className="city-header">
-    //   <div className='city-details'>
-    //     <h1>{city.city}</h1>
-    //     <div>{city.description}</div>
-    //   </div>
-    //   <img src={city.image} alt={`${city.city} city`} className="city-image" />
-    // </div>
-
     <div className="city-header">
-      {cities && (
+      {city ? (
         <>
-          {cities.map(city => (
-            <>
-              <div className='city-details'>
-                <h1>{city.name}</h1>
-                <div>{city.description}</div>
-              </div>
-              <img src={city.image_url} alt={`${city.name} city`} className="city-image" />
-            </>
-
-          ))}
+          <div className="city-details">
+            <h1>{city.name}</h1>
+            <div>{city.description}</div>
+          </div>
+          <img
+            src={city.image_url}
+            alt={`${city.name} city`}
+            className="city-image"
+          />
         </>
+      ) : (
+        <p>No city details found.</p>
       )}
     </div>
   );
-  ;
-}
+};
 
-// CityHeader.propTypes = {
-//   city: PropTypes.number.isRequired // Expecting a cityId as a prop
-// };
+// PropTypes to enforce expected props
+CityHeader.propTypes = {
+  cityName: PropTypes.string.isRequired,
+};
 
 export default CityHeader;

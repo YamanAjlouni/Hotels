@@ -14,15 +14,12 @@ export const Intro = () => {
   const dispatch = useDispatch();
   const { cities, loading, error } = useSelector((state) => state.cityData);
 
-  // Dispatch the action to fetch cities
   useEffect(() => {
-    dispatch(GetCitiesAction({ page: 1, size: 10 })); // You can change page/size as needed
+    dispatch(GetCitiesAction({ page: 1, size: 10 })); // Fetch cities when the component mounts
   }, [dispatch]);
 
   if (loading) return <Spinner />;
   if (error) return <div>Error: {error}</div>;
-
-  console.log(cities);
 
   return (
     <div className="intro-out-container">
@@ -39,7 +36,8 @@ export const Intro = () => {
               <img src={city.image_url} alt={city.name} className="city-image" />
               <div className="city-overlay">
                 <h2 className="city-name">{city.name}</h2>
-                <Link to={city.link} className="city-link">
+                {/* Pass city name or ID as a query parameter */}
+                <Link to={`/search-results?city=${city.name}`} className="city-link">
                   Explore Hotels in {city.name}
                 </Link>
               </div>
