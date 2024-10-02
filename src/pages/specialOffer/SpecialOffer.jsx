@@ -1,33 +1,48 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import './SpecialOffer.scss';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetSpecialOffer } from '../../redux/actions/SpecialOfferAction';
+import Spinner from '../../components/spinner/Spinner';
+import { useNavigate } from 'react-router';
 
-const SpecialOffer = ({ offers }) => {
-  const navigate = useNavigate();
+const SpecialOffer = () => {
+  const dispatch = useDispatch();
+  const { special_offer, loading, error } = useSelector(state => state.special_offer);
+  const navigate = useNavigate()
 
-  const handleClick = (offer) => {
-    navigate('/offer-details', { state: { offer } });
+
+  useEffect(() => {
+    // Dispatch the action to fetch hotel by ID
+    dispatch(GetSpecialOffer());
+  }, [dispatch]);
+
+  const handleRoomClick = (roomId) => {
+    navigate(`/room-details/${roomId}`);
   };
+
+  if (loading) return <Spinner />;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="special-offer-container">
       <h2>Special Offers</h2>
       <div className="special-offer-list">
-        {offers.map((offer, index) => (
-          <div key={index} className="special-offer-item" onClick={() => handleClick(offer)}>
-            <img src={offer.roomImages[0]} alt={offer.roomName} className="room-image" />
-            <div className="offer-details">
-              <h3>{offer.hotelName}</h3>
-              <p className='city-name'>City: {offer.city}</p>
+        {special_offer.map(hotel => (
+          <div className="special-offer-item" key={hotel.id} onClick={() => handleRoomClick(hotel.id)}>
+            <img src={hotel.image_url} alt={hotel.hotel_name} className="room-image" />
+            <div className="hotel-details">
+              <h3>{hotel.hotel_name}</h3>
+              <p className='city-name'>City: {hotel.city}</p>
               <div className="room-info">
-                <p className='room-into-name'>Room: {offer.roomName}</p>
-                <p>Price: ${offer.roomPrice}</p>
+                <p className='room-into-name'>Room: {hotel.room_name}</p>
+                <p>Price: {hotel.room_price} SYP</p>
               </div>
             </div>
           </div>
-        ))}
+        ))
+        }
       </div>
-    </div>
+    </div >
   );
 };
 

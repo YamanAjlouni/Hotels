@@ -69,14 +69,14 @@ export const NavBar = () => {
                 <li className={isActive('/') ? 'active' : ''}>
                     <Link to="/" onClick={() => setShowSide(false)}>Home</Link>
                 </li>
-                <li className={isActive('/search-results?city=Damascus') ? 'active' : ''}>
-                    <Link to="/search-results?city=Damascus" onClick={() => setShowSide(false)}>Damascus</Link>
+                <li className={isActive('/search-results/Damascus') ? 'active' : ''}>
+                    <Link to="/search-results/Damascus" onClick={() => setShowSide(false)}>Damascus</Link>
                 </li>
-                <li className={isActive('/search-results?city=Lattakia') ? 'active' : ''}>
-                    <Link to="/search-results?city=Lattakia" onClick={() => setShowSide(false)}>Lattakia</Link>
+                <li className={isActive('/search-results/Lattakia') ? 'active' : ''}>
+                    <Link to="/search-results/Lattakia" onClick={() => setShowSide(false)}>Lattakia</Link>
                 </li>
-                <li className={isActive('/search-results?city=Tartus') ? 'active' : ''}>
-                    <Link to="/search-results?city=Tartus" onClick={() => setShowSide(false)}>Tartus</Link>
+                <li className={isActive('/search-results/Tartus') ? 'active' : ''}>
+                    <Link to="/search-results/Tartus" onClick={() => setShowSide(false)}>Tartus</Link>
                 </li>
                 {/* <li><Link to="/search-results?city=Homs">Homs</Link></li> */}
             </ul>

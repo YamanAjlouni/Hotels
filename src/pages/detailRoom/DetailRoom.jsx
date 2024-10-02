@@ -12,7 +12,7 @@ const DetailRoom = () => {
   }, []);
 
   if (!room) {
-    return <p>No room details available</p>;
+    return <p style={{textAlign: 'center'}}>No room details available</p>;
   }
 
   const handleThumbnailClick = (image) => {

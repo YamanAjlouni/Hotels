@@ -10,7 +10,7 @@ export const GetCitiesAction = createAsyncThunk(
       const cities = await fetchCitiesAPI(info.page, info.size); // Using pagination info
       return cities;
     } catch (error) {
-      return rejectWithValue('Error fetching cities');
+      return rejectWithValue('Error fetching cities  ');
     }
   }
 );

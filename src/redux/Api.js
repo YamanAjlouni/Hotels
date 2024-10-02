@@ -41,6 +41,33 @@ export const fetchDetailsByCityNameAPI = async (cityName) => {
 
 /* /////////////////////////////// Hotels /////////////////////////////// */
 
+export const fetchSuggestedHotelsAPI = async () => {
+  try {
+    let { data: suggested_hotels, error: hotelError } = await supabase
+      .from('suggested_hotels')
+      .select(`
+        *,
+        hotels (
+          name,
+          description,
+          stars,
+          image_url,
+          cities (
+            name
+          )
+        )
+      `);
+
+    if (hotelError) throw hotelError;
+
+    return suggested_hotels; // Return the list of hotels with city names
+  } catch (error) {
+    console.error(`Error fetching hotels`, error);
+    throw error;
+  }
+};
+
+
 export const fetchHotelsByCityNameAPI = async (cityName) => {
   try {
     // Step 1: Get the city ID by its name
@@ -77,7 +104,7 @@ export const fetchHotelById = async (id) => {
     // Step 1: Fetch hotel details by hotel ID
     let { data: hotel, error } = await supabase
       .from('hotels')
-      .select('*') // Select all columns, or specify the columns you need
+      .select('*') 
       .eq('id', id); // Use the 'eq' function to filter by hotel ID
 
     if (error) throw error;
@@ -86,7 +113,7 @@ export const fetchHotelById = async (id) => {
       throw new Error(`No hotel found with ID: ${id}`);
     }
 
-    return hotel[0]; // Return the first (and only) matching hotel
+    return hotel[0];
   } catch (error) {
     console.error(`Error fetching hotel with ID ${id}:`, error);
     throw error;
@@ -100,7 +127,6 @@ export const fetchHotelById = async (id) => {
 
 export const fetchRoomsByHotelIdAPI = async (hotelId) => {
   try {
-    // Query the database for rooms by hotel ID
     let { data: rooms, error } = await supabase
       .from('rooms')
       .select('*')
@@ -112,7 +138,7 @@ export const fetchRoomsByHotelIdAPI = async (hotelId) => {
       throw new Error(`No rooms found for hotel with ID: ${hotelId}`);
     }
 
-    return rooms; // Return the list of rooms for the hotel
+    return rooms; 
   } catch (error) {
     console.error(`Error fetching rooms for hotel ${hotelId}:`, error);
     throw error;
@@ -124,10 +150,9 @@ export const fetchRoomsByHotelIdAPI = async (hotelId) => {
 
 export const fetchSpecialOfferAPI = async () => {
   try {
-    // Query the database for rooms by hotel ID
     let { data: special_offer, error } = await supabase
       .from('special_offer')
-      .select('*')
+      .select('*');
 
     if (error) throw error;
 
@@ -135,9 +160,30 @@ export const fetchSpecialOfferAPI = async () => {
       throw new Error(`No Special Offer Available`);
     }
 
-    return special_offer; // Return the list of rooms for the hotel
+    return special_offer;
   } catch (error) {
-    console.error(`Error fetching Special Offer`, error);
+    console.error('Error fetching Special Offer:', error);
     throw error;
+  }
+};
+
+
+export const fetchSpecialOfferRoomsAPI = async (id) => {
+  try {
+    const { data: selectedSpecialOffer, error } = await supabase
+      .from('special_offer_rooms')
+      .select('*')
+      .eq('id', id);  // Ensure you pass the column name and value for filtering
+
+    if (error) throw new Error(`Supabase Error: ${error.message}`);
+
+    if (!selectedSpecialOffer || selectedSpecialOffer.length === 0) {
+      throw new Error(`No Special Offer Available for Room ID: ${id}`);
+    }
+    
+    return selectedSpecialOffer;
+  } catch (error) {
+    console.error('Error fetching special offer room:', error.message || error);
+    throw new Error('Failed to fetch the special offer room. Please try again later.');
   }
 };

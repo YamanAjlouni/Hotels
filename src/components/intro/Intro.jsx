@@ -36,8 +36,8 @@ export const Intro = () => {
               <img src={city.image_url} alt={city.name} className="city-image" />
               <div className="city-overlay">
                 <h2 className="city-name">{city.name}</h2>
-                {/* Pass city name or ID as a query parameter */}
-                <Link to={`/search-results?city=${city.name}`} className="city-link">
+                {/* Pass city name as part of the path */}
+                <Link to={`/search-results/${city.name}`} className="city-link">
                   Explore Hotels in {city.name}
                 </Link>
               </div>

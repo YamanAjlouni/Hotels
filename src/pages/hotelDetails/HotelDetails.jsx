@@ -5,6 +5,8 @@ import './HotelDetails.scss';
 import { GetHotelById } from '../../redux/actions/HotelsAction';
 import RoomDetails from '../roomDetails/RoomDetails';
 import Spinner from '../../components/spinner/Spinner';
+import { Rooms } from '../rooms/Rooms';
+import Error from '../../components/error/Error';
 
 const HotelDetails = () => {
   const { id } = useParams();
@@ -19,7 +21,7 @@ const HotelDetails = () => {
   console.log(selectedHotel)
 
   if (loading) return <div><Spinner /></div>;
-  if (error) return <div>{error}</div>;
+  if (error) return <div><Error /></div>;
 
   // Ensure selectedHotel is not null before trying to access its properties
   if (!selectedHotel) {
@@ -29,7 +31,6 @@ const HotelDetails = () => {
   return (
     <div className="hotel-detail">
       <div className="header">
-        {/* Check if selectedHotel.image exists before rendering the img tag */}
         {selectedHotel.image_url ? (
           <img src={selectedHotel.image_url} alt={selectedHotel.name} />
         ) : (
@@ -46,7 +47,7 @@ const HotelDetails = () => {
           ))}
         </div>
         {/* You can also pass rooms to RoomDetails component */}
-        <RoomDetails hotelId={id} hotelName={ selectedHotel.name} />
+        <Rooms hotelId={id} hotelName={selectedHotel.name} />
       </div>
     </div>
   );

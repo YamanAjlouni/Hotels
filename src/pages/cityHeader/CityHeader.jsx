@@ -4,43 +4,38 @@ import PropTypes from 'prop-types';
 import './CityHeader.scss';
 import { GetDetailsByCityNameAction } from '../../redux/actions/CityAction';
 import Spinner from '../../components/spinner/Spinner';
+import Error from '../../components/error/Error';
 
 const CityHeader = ({ cityName }) => {
   const dispatch = useDispatch();
 
-  // Select the city details from Redux state
-  const city = useSelector(state => state.cityData.selectedCity);
-  const loading = useSelector(state => state.cityData.loading);
-  const error = useSelector(state => state.cityData.error);
+  const { selectedCity, loading, error } = useSelector(state => state.cityData);
 
-  // Fetch the city details when the component mounts
   useEffect(() => {
     if (cityName) {
       dispatch(GetDetailsByCityNameAction(cityName));
     }
   }, [dispatch, cityName]);
 
-  // Render loading, error or city data
   if (loading) {
     return <Spinner />
   }
 
   if (error) {
-    return <p>Error loading city details: {error}</p>;
+    return <p> <Error /></p>;
   }
-  console.log(city)
 
   return (
     <div className="city-header">
-      {city ? (
+      {selectedCity ? (
         <>
           <div className="city-details">
-            <h1>{city.name}</h1>
-            <div>{city.description}</div>
+            <h1>{selectedCity.name}</h1>
+            <div>{selectedCity.description}</div>
           </div>
           <img
-            src={city.image_url}
-            alt={`${city.name} city`}
+            src={selectedCity.image_url}
+            alt={`${selectedCity.name} city`}
             className="city-image"
           />
         </>
@@ -51,7 +46,6 @@ const CityHeader = ({ cityName }) => {
   );
 };
 
-// PropTypes to enforce expected props
 CityHeader.propTypes = {
   cityName: PropTypes.string.isRequired,
 };

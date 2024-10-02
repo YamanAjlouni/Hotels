@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import './WhereTo.scss';
 import DatePicker from 'react-datepicker';
@@ -6,13 +6,10 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { Dropdown } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useDispatch, useSelector } from 'react-redux';
+import { GetCitiesAction } from '../../redux/actions/CityAction';
 
-const countryOptions = [
-  { value: '', label: 'Select a city' },
-  { value: 'Damascus', label: 'Damascus' },
-  { value: 'Lattakia', label: 'Lattakia' },
-  { value: 'Tartous', label: 'Tartous' }
-];
+
 
 const customStyles = {
   dropdownIndicator: (provided) => ({
@@ -41,7 +38,8 @@ const customStyles = {
     backgroundColor: state.isSelected ? '#007bff' : provided.backgroundColor,
     color: state.isSelected ? 'white' : provided.color,
     '&:hover': {
-      backgroundColor: '#0056b3',
+      backgroundColor: '#004643',
+      color : '#E9F7EF',
     },
   }),
 };
@@ -58,8 +56,14 @@ export const WhereTo = () => {
     dates: false,
     childrenAges: false
   });
-
+  const dispatch = useDispatch();
+  const { cities, loading, error } = useSelector(state => state.cityData);
   const navigate = useNavigate(); // Initialize navigate
+
+  useEffect(() => {
+    dispatch(GetCitiesAction({ page: 1, size: 20 })); // Fetch cities when the component mounts
+  }, [dispatch]);
+
 
   const handleChildrenChange = (value) => {
     setChildren(value);
@@ -120,14 +124,15 @@ export const WhereTo = () => {
         {/* Country Dropdown */}
         <div className='form-group'>
           <label htmlFor='country'>Select Country:</label>
-          <Select
+            <Select
             id='country'
-            value={countryOptions.find(option => option.value === country)}
+            value={cities.name}
             onChange={(option) => setCountry(option.value)}
-            options={countryOptions}
+            options={cities.map(city => ({ label: city.name, value: city.name }))} // Create options from the cities array
             styles={customStyles}
             aria-label='Country selection'
           />
+          
           {errors.country && <span className='error-message'>Please select a country.</span>}
         </div>
 

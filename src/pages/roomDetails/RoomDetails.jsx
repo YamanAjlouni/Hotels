@@ -1,41 +1,62 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import './RoomDetails.scss';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { GetSpecialOfferRoom } from '../../redux/actions/SpecialOfferRoom';
 import { useDispatch, useSelector } from 'react-redux';
-import { GetRoomsDetails } from '../../redux/actions/RoomsAction';
 import Spinner from '../../components/spinner/Spinner';
+import './RoomDetails.scss'; 
 
-const RoomDetails = ({ hotelId , hotelName}) => {
+const RoomDetails = () => {
+  const { id } = useParams(); 
   const dispatch = useDispatch();
-  const { rooms, loading, error } = useSelector(state => state.rooms);
+  const { selectedSpecialOffer, loading, error } = useSelector(state => state.special_offer);
+  
+  const [mainImageIndex, setMainImageIndex] = useState(0); // State to track main image index
 
   useEffect(() => {
-    // Dispatch the action to fetch hotel by ID
-    dispatch(GetRoomsDetails(hotelId));
-  }, [hotelId, dispatch]);
+    if (id) {
+      dispatch(GetSpecialOfferRoom(id));
+    }
+  }, [dispatch, id]);
 
-  console.log(rooms)
+  // Function to change the main image when a thumbnail is clicked
+  const handleThumbnailClick = (index) => {
+    setMainImageIndex(index);
+  };
 
   if (loading) return <div><Spinner /></div>;
+
   if (error) return <div>{error}</div>;
-  
 
   return (
-    <div className="room-details">
-      {rooms.map((room, index) => (
-        <Link
-          to={`/room/${hotelName}/${room.room_name}`} // Dynamic routing
-          key={index}
-          state={{ room, hotelName }} // Pass room data to the next page
-          className="room-item"
-        >
-          <img src={room.image_url} alt={`Room ${room.room_name}`} className="room-image" />
-          <div>
-            <p>Room Name: {room.room_name}</p>
-            <p>Description: {room.description}</p>
-            <p>{`Price: ${room.price} SYP`}</p>
+    <div className="room-details-page">
+      {selectedSpecialOffer?.map((room, roomIndex) => (
+        <div key={roomIndex}>
+          <div className="room-images">
+            <div className="main-image-container">
+              <img
+                src={room.images?.[mainImageIndex]} 
+                alt={`Main room image`}
+                className="main-image"
+              />
+            </div>
+            <div className="thumbnails">
+              {room.images?.map((img, index) => (
+                <img
+                  key={index}
+                  src={img}
+                  alt={`Room thumbnail ${index + 1}`}
+                  className={`thumbnail ${index === mainImageIndex ? 'active' : ''}`}
+                  onClick={() => handleThumbnailClick(index)} 
+                />
+              ))}
+            </div>
           </div>
-        </Link>
+          <div className="room-info">
+            <h3>{room.name}</h3>
+            <p>Price: ${room.price}</p>
+            <p>{room.description}</p>
+          </div>
+        </div>
       ))}
     </div>
   );

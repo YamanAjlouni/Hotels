@@ -1,5 +1,19 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { fetchHotelById, fetchHotelsByCityNameAPI } from '../Api';
+import { fetchHotelById, fetchHotelsByCityNameAPI, fetchSuggestedHotelsAPI } from '../Api';
+
+
+export const GetSuggestedHotels = createAsyncThunk(
+  'hotels/getHotels',
+  async (_, { rejectWithValue }) => {
+    try {
+      const hotels = await fetchSuggestedHotelsAPI();
+      return hotels;
+      console.log(hotels)
+    } catch (error) {
+      return rejectWithValue('Error fetching hotels');
+    }
+  }
+);
 
 
 export const GetHotelsByName = createAsyncThunk(

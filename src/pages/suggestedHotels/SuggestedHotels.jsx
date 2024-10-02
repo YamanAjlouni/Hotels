@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './SuggestedHotels.scss';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -8,13 +8,36 @@ import "swiper/css/navigation";
 import "swiper/css/thumbs";
 // import { Autoplay, FreeMode, Navigation, Thumbs } from "swiper/modules";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { GetSuggestedHotels } from '../../redux/actions/HotelsAction';
+import Spinner from '../../components/spinner/Spinner';
+import Error from '../../components/error/Error';
 
-const SuggestedHotels = ({ hotels, city }) => {
+
+
+
+const SuggestedHotels = ({ city }) => {
   const navigate = useNavigate();
+  const { SuggestedHotels, loading, error } = useSelector(state => state.hotels);
+  const dispatch = useDispatch();
 
-  const handleCardClick = (hotelId , hotelCity) => {
+  useEffect(() => {
+    dispatch(GetSuggestedHotels());
+  }, [dispatch]);
+  console.log(SuggestedHotels)
+
+
+  const handleCardClick = (hotelId, hotelCity) => {
     navigate(`/${hotelCity}/hotel/${hotelId}`);
   };
+
+  if (loading) {
+    return <Spinner />
+  }
+
+  if (error) {
+    return <p> <Error /></p>;
+  }
 
   return (
     <div className="suggested-hotels">
@@ -41,18 +64,18 @@ const SuggestedHotels = ({ hotels, city }) => {
           navigation
           className="swiper-container"
         >
-          {hotels.map(hotel => (
+          {SuggestedHotels?.map(hotel => (
             <SwiperSlide key={hotel.id}>
               <div 
                 className="hotel-card"
-                onClick={() => handleCardClick(hotel.id , hotel.city)}
+                onClick={() => handleCardClick(hotel.hotel_id)}
               >
-                <img src={hotel.image} alt={hotel.name} className="hotel-image" />
+                <img src={hotel.hotels.image_url} alt={hotel.hotels.name} className="hotel-image" />
                 <div className="hotel-info">
-                  <h3>{hotel.name}</h3>
-                  <p>{hotel.city}</p>
-                  <p>{hotel.description}</p>
-                  <span className="hotel-stars">{hotel.stars}</span>
+                  <h3>{hotel.hotels.name}</h3>
+                  <p>{hotel.hotels.cities.name}</p>
+                  <p>{hotel.hotels.description}</p>
+                  <span className="hotel-stars">{hotel.hotels.stars}</span>
                 </div>
               </div>
             </SwiperSlide>

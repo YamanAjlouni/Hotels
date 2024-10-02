@@ -1,6 +1,7 @@
 // hotelsSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 import { GetSpecialOffer } from '../actions/SpecialOfferAction';
+import { GetSpecialOfferRoom } from '../actions/SpecialOfferRoom';
 
 // Create hotels slice
 const specialOfferSlice = createSlice({
@@ -27,7 +28,22 @@ const specialOfferSlice = createSlice({
         state.error = action.payload;
         state.loading = false;
       })
-      
+
+      // Handle GetSpecialOfferRoom actions
+
+      .addCase(GetSpecialOfferRoom.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(GetSpecialOfferRoom.fulfilled, (state, action) => {
+        state.selectedSpecialOffer = action.payload;
+        state.loading = false;
+      })
+      .addCase(GetSpecialOfferRoom.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      })
+
   },
 });
 

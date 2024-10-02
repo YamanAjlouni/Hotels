@@ -4,7 +4,7 @@ import { fetchSpecialOfferAPI } from '../Api';
 
 export const GetSpecialOffer = createAsyncThunk(
     'special/get',
-    async ({ rejectWithValue }) => {
+    async ( _, { rejectWithValue }) => {
       try {
         const special_offer = await fetchSpecialOfferAPI(); // Using pagination info
         return special_offer;

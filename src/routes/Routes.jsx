@@ -6,6 +6,7 @@ import { HomePage } from '../HomePage';
 import HotelDetails from '../pages/hotelDetails/HotelDetails';
 import DetailSpecialOffer from '../pages/detailSpecialOffer/DetailSpecialOffer';
 import DetailRoom from '../pages/detailRoom/DetailRoom';
+import RoomDetails from '../pages/roomDetails/RoomDetails';
 
 const AppRoutes = () => {
   return (
@@ -13,10 +14,10 @@ const AppRoutes = () => {
       <NavBar />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/search-results" element={<SearchResults />} />
+        <Route path="/search-results/:city" element={<SearchResults />} />
         <Route path="/:city/hotel/:id" element={<HotelDetails />} />
         <Route path="/offer-details" element={<DetailSpecialOffer />} /> 
-        <Route path="/room/:hotelName/:roomName" element={<DetailRoom />} />
+        <Route path="/room-details/:id" element={<RoomDetails />} />
         {/* Add more routes as needed */}
       </Routes>
     </Router>

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GetHotelsByName } from '../../redux/actions/HotelsAction';
 import { fetchHotelsByCityName } from '../../redux/reducers/hotelsSlice';
 import Spinner from '../../components/spinner/Spinner';
+import Error from '../../components/error/Error';
 
 const HotelList = ({ city, cityName }) => {
   const dispatch = useDispatch();
@@ -18,13 +19,13 @@ const HotelList = ({ city, cityName }) => {
   }, [cityName, dispatch]);
 
   if (loading) return <Spinner />;
-  if (error) return <p>Error: {error}</p>;
+  if (error) return <p><Error /></p>;
 
 
   return (
     <div className="hotel-list">
       {hotels.map(hotel => (
-        <HotelItem city={city} key={hotel.id} hotel={hotel} />
+        <HotelItem city={cityName} key={hotel.id} hotel={hotel} />
       ))}
     </div>
   );

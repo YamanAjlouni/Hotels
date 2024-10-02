@@ -1,6 +1,6 @@
 // hotelsSlice.js
 import { createSlice } from '@reduxjs/toolkit';
-import { GetHotelsByName, GetHotelById } from '../actions/HotelsAction';
+import { GetHotelsByName, GetHotelById, GetSuggestedHotels } from '../actions/HotelsAction';
 
 // Create hotels slice
 const hotelsSlice = createSlice({
@@ -8,6 +8,7 @@ const hotelsSlice = createSlice({
   initialState: {
     hotels: [],
     selectedHotel: null,
+    SuggestedHotels: null,
     loading: false,
     error: null,
   },
@@ -41,6 +42,20 @@ const hotelsSlice = createSlice({
         state.loading = false;
       })
       .addCase(GetHotelById.rejected, (state, action) => {
+        state.error = action.payload;
+        state.loading = false;
+      })
+      // Handle Suggested Hotels Action
+      .addCase(GetSuggestedHotels.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+        state.selectedHotel = null;
+      })
+      .addCase(GetSuggestedHotels.fulfilled, (state, action) => {
+        state.SuggestedHotels = action.payload;
+        state.loading = false;
+      })
+      .addCase(GetSuggestedHotels.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
       });

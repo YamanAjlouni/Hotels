@@ -5,7 +5,7 @@ import './HotelItem.scss';
 
 const HotelItem = ({ hotel , city }) => {
   return (
-    <Link to={`/${city.city}/hotel/${hotel.id}`} className="hotel-item-link">
+    <Link to={`/${city}/hotel/${hotel.id}`} className="hotel-item-link">
       <div className="hotel-item">
         <h2>{hotel.name}</h2>
         <img src={hotel.image_url} alt={hotel.name} className="hotel-image" />
